@@ -9,7 +9,6 @@ Crypto Coin Tracker is a web application that allows users to see a list of cryp
 
 ## Technologies Used
 
-- **Front-end:** HTML, CSS, JavaScript, React.js
+- **Front-end:** React.js
 - **Back-end:** Node.js, Express.js
-- **Database:** MongoDB
 - **Coin Data:** CoinGecko API
