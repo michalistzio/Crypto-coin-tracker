@@ -355,7 +355,7 @@ exports.getCoinDetails = async (req, res, next) => {
         coinDetails.price_change_percentage_200d = coinDetails.cp * coinDetails.price_change_percentage_200d * 0.01
         coinDetails.price_change_percentage_1y = coinDetails.cp * coinDetails.price_change_percentage_1y * 0.01
         
-        // console.log(coinDetails)
+        console.log('You take coin details')
 
         res.status(200).json({message:'Get CoinId', coin: coinDetails})
     } catch (err) {

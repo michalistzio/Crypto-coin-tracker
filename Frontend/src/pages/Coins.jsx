@@ -83,11 +83,11 @@ const Coins = () => {
                   <Dropdown.Item onClick={() => changePageSize(10)}>
                     10
                   </Dropdown.Item>
+                  <Dropdown.Item onClick={() => changePageSize(15)}>
+                    15
+                  </Dropdown.Item>
                   <Dropdown.Item onClick={() => changePageSize(25)}>
                     25
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => changePageSize(50)}>
-                    50
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

@@ -52,31 +52,48 @@ const CoinDetails = () => {
                   <strong>Price:</strong> $ {cryptocurrency.cp}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Price change on the last 24h:</strong> $ {cryptocurrency.price_change_24h}
+                  <strong>Last 24h:</strong> $ {cryptocurrency.price_change_24h}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Price change on the last 7 days:</strong> $ {cryptocurrency.price_change_percentage_7d}
+                  <strong>Last 7 days:</strong> $ {cryptocurrency.price_change_percentage_7d}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Price change on the last 14 days:</strong> $ {cryptocurrency.price_change_percentage_14d}
+                  <strong>Last 14 days:</strong> $ {cryptocurrency.price_change_percentage_14d}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Price change on the last 1 month:</strong> $ {cryptocurrency.price_change_percentage_30d}
+                  <strong>Last 1 month:</strong> $ {cryptocurrency.price_change_percentage_30d}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Price change on the last 2 months:</strong> $ {cryptocurrency.price_change_percentage_60d}
+                  <strong>Last 2 months:</strong> $ {cryptocurrency.price_change_percentage_60d}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Price change on the last 200 days:</strong> $ {cryptocurrency.price_change_percentage_200d}
+                  <strong>Last 200 days:</strong> $ {cryptocurrency.price_change_percentage_200d}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Price change on the last 1 year:</strong> $ {cryptocurrency.price_change_percentage_1y}
+                  <strong>Last 1 year:</strong> $ {cryptocurrency.price_change_percentage_1y}
+                </Card.Text>
+                <hr /> 
+                {/* <h5 className='text-center'>Last 24h:</h5> */}
+                <Card.Text>
+                <div class="container">
+                  <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                       <h5>Last 24h:</h5> 
+                     </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <strong>Highest:</strong> $ {cryptocurrency.h24h}
+                    </div>
+                    <div class="col"></div>
+                    <div class="col">
+                      <strong>Lowest:</strong> $ {cryptocurrency.l24h}
+                    </div>
+                  </div>
+                </div>
                 </Card.Text>
                 <Card.Text>
-                  <strong>The highest price on the last day:</strong> $ {cryptocurrency.h24h}
-                </Card.Text>
-                <Card.Text>
-                  <strong>The lowest price on the last day:</strong> $ {cryptocurrency.l24h}
+                  
                 </Card.Text>
               </Card.Body>
             </Card>
