@@ -65,7 +65,7 @@ const Coins = () => {
           <Col md={6} className="offset-md-3">
             <Card className="card text-bg-success mb-3 p-3">
               <Card.Body >
-                <Card.Title className="mb-4  text-center" ><strong><h3>You have exceeded the request limt!</h3></strong></Card.Title>
+                <Card.Title className="mb-4  text-center" ><strong><h3>You have exceeded the request limit!</h3></strong></Card.Title>
                 <Card.Text className="mb-2  text-center">
                   <Spinner animation="border" size="sm" variant="warning"/>
                   <Spinner animation="border" variant="warning"/>
