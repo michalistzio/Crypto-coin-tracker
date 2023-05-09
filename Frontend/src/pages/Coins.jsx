@@ -1,16 +1,16 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Table, Pagination, Dropdown } from 'react-bootstrap';
+import { Table, Pagination, Dropdown, Spinner, Container, Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Coins = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [coinsPerPage, setCoinsPerPage] = useState(10);
   const [data, setData] = useState([]);
+  const [isFetching, setIsFetching] = useState(false); // New state variable to track data fetching progress
 
   const cellStyle = {
     color: 'white', // Set your desired font color here
-    // fontWeight: 'bold', // Additional customization
   };
 
   useEffect(() => {
@@ -18,13 +18,28 @@ const Coins = () => {
       try {
         const response = await fetch(`http://localhost:8080/coins/markets?page=${currentPage}&per_page=${coinsPerPage}`);
         const jsonData = await response.json();
-        setData(jsonData.coins_list);
+        if (typeof jsonData.coins_list !== 'undefined'){
+          setData(jsonData.coins_list);
+        }
+        else{
+          setIsFetching(true)
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
   }, [currentPage, coinsPerPage]);
+
+  const getTradeDirection = (price) => {
+    if (price > 0) {
+      return <span className="trade-up">&#9650;</span>; // Trade-up symbol (▲)
+    } else if (price < 0) {
+      return <span className="trade-down">&#9660;</span>; // Trade-down symbol (▼)
+    } else {
+      return null; // No trade symbol if price remains unchanged
+    }
+  };
 
   const goToPrevious = () => {
     if (currentPage <= 1)
@@ -43,9 +58,26 @@ const Coins = () => {
     setCoinsPerPage(newSize);
   }
 
-
-  if (data.length === 0) {
-    return <div>Loading...</div>;
+  if (isFetching) {
+    return (
+      <Container className="p-3 loading-container">
+        <Row className="mt-5">
+          <Col md={6} className="offset-md-3">
+            <Card className="card text-bg-success mb-3 p-3">
+              <Card.Body >
+                <Card.Title className="mb-4  text-center" ><strong><h3>You have exceeded the request limt!</h3></strong></Card.Title>
+                <Card.Text className="mb-2  text-center">
+                  <Spinner animation="border" size="sm" variant="warning"/>
+                  <Spinner animation="border" variant="warning"/>
+                  <Spinner animation="grow" size="sm" variant="warning"/>
+                  <Spinner animation="grow" variant="warning"/>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    );
   }
 
   return (
@@ -69,17 +101,17 @@ const Coins = () => {
                         <td style={cellStyle} className='text-end'>{item.current_price}</td>
                         <td style={cellStyle} className='text-end'>{item.high_24h}</td>
                         <td style={cellStyle} className='text-end'>{item.low_24h}</td>
-                        <td style={cellStyle} className='text-end pe-5'>{item.price_change_percentage_24h}</td>
+                        <td style={cellStyle} className='text-end pe-5'> {getTradeDirection(item.price_change_percentage_24h)} {item.price_change_percentage_24h}</td>
                     </tr>
                 ))}
             </tbody>
           </Table>
-          <div className="d-flex justify-content-between align-items-center">
-              <Dropdown bgcolor='light'>
-                <Dropdown.Toggle variant="light">
+          <div className="d-flex justify-content-between align-items-center " >
+              <Dropdown>
+                <Dropdown.Toggle style={{ borderColor: 'white' }} className="text-bg-success">
                   Page Size: {coinsPerPage}
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu >
                   <Dropdown.Item onClick={() => changePageSize(10)}>
                     10
                   </Dropdown.Item>
@@ -91,13 +123,13 @@ const Coins = () => {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <Pagination bgcolor='light'>
+              <Pagination >
                 <Pagination.Prev onClick={goToPrevious}/>  
-                  <Pagination.Item> {currentPage} </Pagination.Item>
+                  <Pagination.Item  > {currentPage} </Pagination.Item>
                   <Pagination.Next onClick={goToNext} />  
               </Pagination>
           </div>
-        </div>
+      </div>
 
 
   );

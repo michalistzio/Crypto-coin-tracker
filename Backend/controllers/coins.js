@@ -5,10 +5,10 @@ exports.getCoins = async (req, res, next) => {
     const per_page = req.query.per_page
 
     try{
-        //take coins data from coingecko API
+        // //take coins data from coingecko API
         const response = await axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=${per_page}&page=${currentPage}&sparkline=false&locale=en`);
 
-        //clean data
+        // //clean data
         const  coins = response.data.map(({ id, name, symbol, current_price, high_24h, low_24h, price_change_percentage_24h }) => ({ id, name, symbol, current_price, high_24h, low_24h, price_change_percentage_24h }));
         console.log("You get coins")
         // const coins = [

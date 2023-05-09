@@ -3,6 +3,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+// import PriceDisplay from '../components/PriceDisplay';
 
 const CoinDetails = () => {
 
@@ -13,6 +14,16 @@ const CoinDetails = () => {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     height: '100vh'
+  };
+
+  const getTradeDirection = (price) => {
+    if (price > 0) {
+      return <span className="trade-up">&#9650;</span>; // Trade-up symbol (▲)
+    } else if (price < 0) {
+      return <span className="trade-down">&#9660;</span>; // Trade-down symbol (▼)
+    } else {
+      return null; // No trade symbol if price remains unchanged
+    }
   };
 
   const { id } = useParams();
@@ -42,58 +53,48 @@ const CoinDetails = () => {
                 <Link to={`/`} >Back to coins</Link>
               </Card.Header>
               <Card.Body >
-                <Card.Title className="mb-2  text-center" >{cryptocurrency.name}</Card.Title>
-                {/* <Card.Subtitle className="mb-2  text-center" >
-                  {cryptocurrency.cp}$
-                </Card.Subtitle> */}
+                <Card.Title className="mb-2  text-center" ><strong>{cryptocurrency.name}</strong></Card.Title>
                 <Card.Text dangerouslySetInnerHTML={{ __html: cryptocurrency.desc }}  ></Card.Text>
                 <hr />
                 <Card.Text>
                   <strong>Price:</strong> $ {cryptocurrency.cp}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Last 24h:</strong> $ {cryptocurrency.price_change_24h}
+                  <strong>Last 24h:</strong> $ {getTradeDirection(cryptocurrency.price_change_24h)} {cryptocurrency.price_change_24h}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Last 7 days:</strong> $ {cryptocurrency.price_change_percentage_7d}
+                  <strong>Last 7 days:</strong> $ {getTradeDirection(cryptocurrency.price_change_percentage_7d)} {cryptocurrency.price_change_percentage_7d} 
                 </Card.Text>
                 <Card.Text>
-                  <strong>Last 14 days:</strong> $ {cryptocurrency.price_change_percentage_14d}
+                  <strong>Last 14 days:</strong> $ {getTradeDirection(cryptocurrency.price_change_percentage_14d)} {cryptocurrency.price_change_percentage_14d}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Last 1 month:</strong> $ {cryptocurrency.price_change_percentage_30d}
+                  <strong>Last 1 month:</strong> $ {getTradeDirection(cryptocurrency.price_change_percentage_30d)} {cryptocurrency.price_change_percentage_30d}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Last 2 months:</strong> $ {cryptocurrency.price_change_percentage_60d}
+                  <strong>Last 2 months:</strong> $ {getTradeDirection(cryptocurrency.price_change_percentage_60d)} {cryptocurrency.price_change_percentage_60d}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Last 200 days:</strong> $ {cryptocurrency.price_change_percentage_200d}
+                  <strong>Last 200 days:</strong> $ {getTradeDirection(cryptocurrency.price_change_percentage_200d)} {cryptocurrency.price_change_percentage_200d}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Last 1 year:</strong> $ {cryptocurrency.price_change_percentage_1y}
+                  <strong>Last 1 year:</strong> $ {getTradeDirection(cryptocurrency.price_change_percentage_1y)} {cryptocurrency.price_change_percentage_1y}
                 </Card.Text>
                 <hr /> 
-                {/* <h5 className='text-center'>Last 24h:</h5> */}
-                <Card.Text>
-                <div class="container">
-                  <div class="row justify-content-md-center">
-                    <div class="col-md-auto">
-                       <h5>Last 24h:</h5> 
-                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <strong>Highest:</strong> $ {cryptocurrency.h24h}
-                    </div>
-                    <div class="col"></div>
-                    <div class="col">
-                      <strong>Lowest:</strong> $ {cryptocurrency.l24h}
-                    </div>
-                  </div>
-                </div>
-                </Card.Text>
-                <Card.Text>
-                  
+                <Card.Text className='pb-3'>
+
+                <Container>
+                  <Row className="justify-content-md-center">
+                    
+                    <Col md="auto"><h5>Last 24h:</h5> </Col>
+                    
+                  </Row>
+                  <Row>
+                    <Col><strong>Highest:</strong> $ {cryptocurrency.h24h}</Col>
+                    <Col></Col>
+                    <Col className='ps-5'> <strong>Lowest:</strong> $ {cryptocurrency.l24h}</Col>
+                  </Row>
+                </Container>
                 </Card.Text>
               </Card.Body>
             </Card>
